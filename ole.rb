@@ -14,7 +14,17 @@ class Ole < Sinatra::Base
   private
   
   def ole
-    system("cvlc #{File.join(File.dirname(__FILE__), 'assets', 'ole_trumpet.mp3')} --play-and-exit")
+    system("#{path_to_vlc} -I dummy --play-and-exit #{File.join(File.dirname(__FILE__), 'assets', 'ole_trumpet.mp3')}")
+  end
+  
+  def path_to_vlc
+    if RUBY_PLATFORM =~ /darwin/
+      path = "/Applications/VLC.app/Contents/Mac OS/VLC"
+      raise "VLC does not appear to be installed" unless File.exists?(path)
+    else
+      path = "vlc"
+    end
+    return path
   end
   
   def ole_if_valid(repo, msg)
