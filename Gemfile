@@ -1,4 +1,7 @@
 source "http://rubygems.org"
 gem 'sinatra'
 gem 'json'
-gem 'festivaltts4r'
+
+group :production do
+  gem 'passenger'
+end
