@@ -13,9 +13,8 @@ class Ole < Sinatra::Base
   
   private
   
-  def ole(with_announcement = "Olay")
+  def ole
     system("#{path_to_vlc} -I dummy --play-and-exit #{File.join(File.dirname(__FILE__), 'assets', 'ole_trumpet.mp3')}")
-   with_announcement.to_speech
   end
   
   def path_to_vlc
@@ -30,6 +29,6 @@ class Ole < Sinatra::Base
   
   def ole_if_valid(repo, msg)
     return unless ENV['ole_repos'].split(',').include?(repo) || msg =~ /\AOLE\:/
-    ole("Deployed from #{repo} - last commit #{msg.replace(/\AOLE\:/, '')}")
+    ole
   end
 end
